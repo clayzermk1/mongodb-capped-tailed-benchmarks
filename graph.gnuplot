@@ -1,0 +1,26 @@
+# Plot count vs latency on a nice graph
+# Run command: gnuplot "graph.gnuplot"
+
+set term png
+set output "results.png"
+set datafile separator ","
+
+set title "Count vs Latency"
+set xlabel "Count"
+set ylabel "Latency (ms)"
+set xrange [0:100000]
+#set yrange [0:10]
+set grid
+set timestamp
+
+# Use this line for plotting a single CSV
+plot "results.csv" using 1:2 with dots
+
+# Use these line for plotting a combined graph of all CSVs
+#set yrange [0.9:30000]
+#set logscale y
+#set key out vert
+#set key right center
+#plot "results.nodejs.csv" using 1:2 with dots title "node", "results.nodejscluster.csv" using 1:2 with dots title "node cluster", "results.python.csv" using 1:2 with dots title "python"
+
+quit

@@ -1,0 +1,3 @@
+$ ./fastProducer
+total: 100000
+msg/s: 2006.7

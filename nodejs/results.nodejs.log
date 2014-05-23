@@ -1,0 +1,4 @@
+$ node fastProducer.js
+Failed to load c++ bson extension, using pure JS version
+total: 100000
+msg/s: 1732.5017325017325

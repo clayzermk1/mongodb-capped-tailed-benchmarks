@@ -1,0 +1,23 @@
+$ node fastProducer-cluster.js
+Failed to load c++ bson extension, using pure JS version
+Failed to load c++ bson extension, using pure JS version
+Failed to load c++ bson extension, using pure JS version
+Failed to load c++ bson extension, using pure JS version
+Failed to load c++ bson extension, using pure JS version
+Failed to load c++ bson extension, using pure JS version
+Failed to load c++ bson extension, using pure JS version
+worker 6474 exited gracefully/was killed/disconnected manually
+worker 6474 died
+worker 6475 exited gracefully/was killed/disconnected manually
+worker 6475 died
+total: 100000
+msg/s: 2585.1149083576765
+worker 6473 exited gracefully/was killed/disconnected manually
+worker 6473 died
+worker 6477 exited gracefully/was killed/disconnected manually
+worker 6477 died
+worker 6476 exited gracefully/was killed/disconnected manually
+worker 6476 died
+worker 6478 exited gracefully/was killed/disconnected manually
+worker 6478 died
+exiting from master
