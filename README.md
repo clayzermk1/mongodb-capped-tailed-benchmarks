@@ -1,6 +1,10 @@
 # MongoDB Capped Collection / Tailed Cursor Benchmarks #
 
-Note: In these tests I do not measure/record memory or CPU utilization. I do monitor them visually using GNOME's `System Monitor`, but that's it. I am only concerned with the performance of the various methods/drivers/etc.
+This experiment began when I decided to try and replicate the results of [R. Shtylman's work](http://shtylman.com/img/post/the-tail-of-mongodb/) with MongoDB's capped collections and tailed cursors to create a message broker. I noticed somewhat quickly that the official Node.js driver does not behave like the others with respect to latency of individual messages.
+
+The results of my tests with various producers are contained within their respective directories.
+
+Note: In these tests I do not measure/record memory or CPU utilization. I do monitor them visually using GNOME's System Monitor, but that's it. I am only concerned with the performance of the various methods/drivers/etc.
 
 ## Environment ##
 
@@ -114,7 +118,7 @@ I made some minor changes to the original C++ consumer:
 
 ## Graphs ##
 
-I graph the generated CSV files using the included GNU Plot script.
+I graph the generated CSV files using the included gnuplot script.
 
 ## Results ##
 
