@@ -1,6 +1,7 @@
 /*
  * Requires node-mongolian to be installed locally.
  * Run command: node producer.mongolian.js
+ * Run note: you will probably have to Ctrl+c to exit the process.
  */
 
 var Mongolian = require("mongolian");

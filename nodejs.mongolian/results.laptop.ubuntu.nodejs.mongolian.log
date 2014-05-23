@@ -1,0 +1,11 @@
+$ node producer.mongolian.js
+total: 100000
+msg/s: 14777.597162701344
+[debug] mongo://localhost:27017: Connected
+[debug] mongo://localhost:27017: Initialized as primary
+[info] mongo://localhost:27017: Connected to primary
+[debug] Finished scanning... primary? mongo://localhost:27017
+^C
+
+
+# Note: Actual wall time and throughput were MUCH lower than reported.

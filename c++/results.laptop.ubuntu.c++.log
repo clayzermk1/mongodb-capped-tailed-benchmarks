@@ -1,0 +1,3 @@
+$ ./producer
+total: 100000
+msg/s: 4558.3

@@ -1,6 +1,7 @@
 /*
  * You must compile the MongoDB C++ driver locally before compiling.
- * Build command: g++ producer.cpp -pthread -lmongoclient -lboost_thread-mt -lboost_filesystem -lboost_program_options -lboost_system -L./mongo-client-install/lib/ -I./mongo-client-install/include/ -o producer
+ * Build command: g++ producer.cpp -pthread -lmongoclient -lboost_thread-mt -lboost_filesystem -lboost_program_options -lboost_system -L./mongo-cxx-driver/build/install/lib/ -I./mongo-cxx-driver/build/install/include/ -o producer
+ * Build note: Use `-lboost_thread-mt` on Debian, `-lboost_thread` on Ubuntu.
  * Run command: ./producer
  */
 

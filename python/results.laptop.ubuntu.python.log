@@ -1,0 +1,5 @@
+$ python producer.py
+/usr/lib/python2.7/dist-packages/pkg_resources.py:1031: UserWarning: /home/clay/.python-eggs is writable by group/others and vulnerable to attack when used with get_resource_filename. Consider a more secure location (set with .set_extraction_path or the PYTHON_EGG_CACHE environment variable).
+  warnings.warn(msg, UserWarning)
+('total: ', 100000)
+('msg/s: ', 2302.3180774446846)

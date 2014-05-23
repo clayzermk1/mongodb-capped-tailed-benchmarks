@@ -1,0 +1,15 @@
+$ ruby producer.rb
+      ** Notice: The native BSON extension was not loaded. **
+
+      For optimal performance, use of the BSON extension is recommended.
+
+      To enable the extension make sure ENV['BSON_EXT_DISABLED'] is not set
+      and run the following command:
+
+        gem install bson_ext
+
+      If you continue to receive this message after installing, make sure that
+      the bson_ext gem is in your load path.
+
+total: 100000
+msg/s: 972.9225305043441

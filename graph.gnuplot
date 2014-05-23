@@ -1,5 +1,5 @@
 # Plot count vs latency on a nice graph
-# Run command: gnuplot "graph.gnuplot"
+# Run command: gnuplot graph.gnuplot
 
 set term png
 set output "results.png"

@@ -4,12 +4,16 @@ This experiment began when I decided to try and replicate the results of [R. Sht
 
 The results of my tests with various producers are contained within their respective directories.
 
+The experiment is rapidly becoming a benchmark of various MongoDB drivers with respect to a specific workload of rapid inserts.
+
 Note: In these tests I do not measure/record memory or CPU utilization. I do monitor them visually using GNOME's System Monitor, but that's it. I am only concerned with the performance of the various methods/drivers/etc.
 
 ## Environment ##
 
+### Debian 7 VM ###
+
 VirtualBox VM running Debian 7.5 amd64 w/ kernel 3.2.0-4-amd64  
-CPU: 6 cores of Intel(R) Xeon(R) CPU W3670 @ 3.20GHz  
+CPU: Intel(R) Xeon(R) CPU W3670 @ 3.20GHz (6 cores allocated)  
 Memory: 6129524 kB (6 GiB)  
 MongoDB: 2.6.1 from MongoDB repo, locally installed and listening on localhost
 
@@ -17,15 +21,40 @@ Python: 2.7.3 from Debian repo
 pymongo: 2.7 installed using easy_install
 
 g++: 4.7.2 from Debian repo  
-Boost: 1.49 from Debian repo  
+Boost: 1.49 from Debian repo (libboost-all-dev)  
 SCons: 2.1.0.r5357 from Debian repo  
 mongo-cxx-driver: "legacy" 0.8.0 from git (May 13, 2014 - c764415ecd4902c80f4880980e618a83d9e1bb92)
 
 Node.js: 0.11.13 installed using [n](https://github.com/visionmedia/n)  
 bson: 0.2.7  
-node-mongodb-native: 1.4.3
+node-mongodb-native: 1.4.3  
+mongolian: 0.1.18
 
 Ruby: 1.9.3p194 (2012-04-20 revision 35410) [x86_64-linux] from Debian repo  
+bson gem: 1.10.1  
+mongo gem: 1.10.1
+
+### Ubuntu 14.04 Laptop ###
+
+Dell XPS M1330 laptop running Ubuntu 14.04 LTS amd64 w/ kernel 3.13.0-24-generic  
+CPU: Intel® Core™2 Duo CPU T8300 @ 2.40GHz (2 cores)  
+Memory: 3080632 kB (3 GiB)  
+MongoDB: 2.6.1 from MongoDB repo, locally installed and listening on localhost
+
+Python: 2.7.6 from Ubuntu repo  
+pymongo: 2.7 installed using easy_install
+
+g++: 4.8.2 from Ubuntu repo  
+Boost: 1.54 from Ubuntu repo (libboost-all-dev)  
+SCons: 2.3.0 from Ubuntu repo
+mongo-cxx-driver: "legacy" 0.8.0 from git (May 13, 2014 - c764415ecd4902c80f4880980e618a83d9e1bb92)
+
+Node.js: 0.11.13 installed using [n](https://github.com/visionmedia/n)  
+bson: 0.2.8  
+node-mongodb-native: 1.4.5  
+mongolian: 0.1.18
+
+Ruby: 1.9.3p484 (2013-11-22 revision 43786) [x86_64-linux] from Ubuntu repo  
 bson gem: 1.10.1  
 mongo gem: 1.10.1
 
@@ -65,6 +94,49 @@ Max realtime priority     0                    0
 Max realtime timeout      unlimited            unlimited            us
 
 ```
+
+## Setup ##
+
+### System ###
+
+Make sure we have all the system essentials.
+
+`sudo apt-get install libboost-all-dev scons python-setuptools ruby build-essential`
+
+### C++ ###
+
+Follow [the instructions](https://github.com/mongodb/mongo-cxx-driver/wiki/Download%20and%20Compile) to download and compile the C++ driver.
+
+```
+git clone git@github.com:mongodb/mongo-cxx-driver.git
+cd mongo-cxx-driver
+git checkout c764415ecd4902c80f4880980e618a83d9e1bb92
+scons install-mongoclient
+```
+
+### Node.js ###
+
+Install Node.js 0.11.13 via n and the MongoDB drivers.
+
+```
+git clone git@github.com:visionmedia/n.git
+cd n
+sudo make install
+sudo n 0.11.13
+npm install
+```
+
+### Python ###
+
+Install pymongo.
+
+`sudo easy_install pymongo`
+
+### Ruby ###
+
+Install mongo.
+
+`sudo gem install mongo`
 
 ## Reproduction of Results by R. Shtylman ##
 

@@ -1,7 +1,8 @@
 /*
  * Modified final source from http://shtylman.com/post/the-tail-of-mongodb/.
  * You must compile the MongoDB C++ driver locally before compiling.
- * Build command: g++ consumer.cpp -pthread -lmongoclient -lboost_thread-mt -lboost_filesystem -lboost_program_options -lboost_system -L./mongo-client-install/lib/ -I./mongo-client-install/include/ -o consumer
+ * Build command: g++ consumer.cpp -pthread -lmongoclient -lboost_thread-mt -lboost_filesystem -lboost_program_options -lboost_system -L./mongo-cxx-driver/build/install/lib/ -I./mongo-cxx-driver/build/install/include/ -o consumer
+ * Build note: Use `-lboost_thread-mt` on Debian, `-lboost_thread` on Ubuntu.
  * Run command: ./consumer > results.csv
  */
 
