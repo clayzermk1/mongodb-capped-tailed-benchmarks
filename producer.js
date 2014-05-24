@@ -14,8 +14,7 @@ MongoClient.connect('mongodb://localhost:27017/default', { "server": { "poolSize
   db.collection('buffer', function (err, buffer) {
     if (err) throw err;
 
-    var start = new Date();
-    Array.apply(null, {length: COUNT}).forEach(function (i) {
+    var doInsert = function () {
       buffer.insert({ "event": "fast", "timestamp": new Date() }, function (err) {
         if (err) throw err;
         count ++;
@@ -25,6 +24,16 @@ MongoClient.connect('mongodb://localhost:27017/default', { "server": { "poolSize
           process.exit();
         }
       });
+    };
+
+    var start = new Date();
+    Array.apply(null, {length: COUNT}).forEach(function (i) {
+      if (i % 50 === 0) {
+        process.nextTick(doInsert);
+      }
+      else {
+        doInsert();
+      }
     });
     /*for (var i = 0; i <= COUNT; i++) {
       buffer.insert({ "event": "fast", "timestamp": new Date() }, function (err) {
