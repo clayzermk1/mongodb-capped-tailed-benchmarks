@@ -27,25 +27,14 @@ MongoClient.connect('mongodb://localhost:27017/default', { "server": { "poolSize
     };
 
     var start = new Date();
-    Array.apply(null, {length: COUNT}).forEach(function (i) {
-      if (i % 50 === 0) {
+    for (var i = 0; i <= COUNT; i++) {
+      if (i % 32 === 0) {
         process.nextTick(doInsert);
       }
       else {
         doInsert();
       }
-    });
-    /*for (var i = 0; i <= COUNT; i++) {
-      buffer.insert({ "event": "fast", "timestamp": new Date() }, function (err) {
-        if (err) throw err;
-        count ++;
-        if (count === COUNT) {
-          console.log('total:', count);
-          console.log('msg/s:', count / (new Date().getTime() - start.getTime()) * 1000);
-          process.exit();
-        }
-      });
-    }*/
+    }
 
     process.on('exit', function () {
       db.close();

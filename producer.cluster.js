@@ -50,7 +50,7 @@ if (cluster.isMaster) {
     db.collection('buffer', function (err, buffer) {
       if (err) throw err;
 
-      for (var i = 0; i <= Math.ceil(COUNT / numCpus); i++) {
+      var doInsert = function () {
         buffer.insert({ "event": "fast", "timestamp": new Date() }, function (err) {
           if (err) throw err;
           count ++;
@@ -59,6 +59,15 @@ if (cluster.isMaster) {
             process.exit();
           }
         });
+      };
+
+      for (var i = 0; i <= Math.ceil(COUNT / numCpus); i++) {
+        if (i % 32 === 0) {
+          process.nextTick(doInsert);
+        }
+        else {
+          doInsert();
+        }
       }
 
       process.on('exit', function () {

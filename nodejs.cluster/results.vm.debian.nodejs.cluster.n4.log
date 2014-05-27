@@ -1,0 +1,16 @@
+$ node producer.cluster.js
+worker 6398 exited gracefully/was killed/disconnected manually
+worker 6398 died
+total: 100000
+msg/s: 2420.369832510408
+worker 6402 exited gracefully/was killed/disconnected manually
+worker 6402 died
+worker 6400 exited gracefully/was killed/disconnected manually
+worker 6400 died
+worker 6403 exited gracefully/was killed/disconnected manually
+worker 6403 died
+worker 6399 exited gracefully/was killed/disconnected manually
+worker 6399 died
+worker 6401 exited gracefully/was killed/disconnected manually
+worker 6401 died
+exiting from master

@@ -26,8 +26,8 @@ SCons: 2.1.0.r5357 from Debian repo
 mongo-cxx-driver: "legacy" 0.8.0 from git (May 13, 2014 - c764415ecd4902c80f4880980e618a83d9e1bb92)
 
 Node.js: 0.11.13 installed using [n](https://github.com/visionmedia/n)  
-bson: 0.2.7  
-node-mongodb-native: 1.4.3  
+bson: 0.2.8  
+node-mongodb-native: 1.4.5  
 mongolian: 0.1.18
 
 Ruby: 1.9.3p194 (2012-04-20 revision 35410) [x86_64-linux] from Debian repo  
@@ -50,8 +50,8 @@ SCons: 2.3.0 from Ubuntu repo
 mongo-cxx-driver: "legacy" 0.8.0 from git (May 13, 2014 - c764415ecd4902c80f4880980e618a83d9e1bb92)
 
 Node.js: 0.11.13 installed using [n](https://github.com/visionmedia/n)  
-bson: 0.2.8  
-node-mongodb-native: 1.4.5  
+bson: 0.2.7 & 0.2.8  
+node-mongodb-native: 1.4.3 & 1.4.5  
 mongolian: 0.1.18
 
 Ruby: 1.9.3p484 (2013-11-22 revision 43786) [x86_64-linux] from Ubuntu repo  
@@ -194,10 +194,22 @@ I graph the generated CSV files using the included gnuplot script.
 
 ## Results ##
 
-All of the drivers produce a consistent latency vs count graph depicting a more-or-less constant latency with the exception of the Node.js drivers which depict a linear or logarithmic increase in latency with an increase in count.
+All of the drivers produce a consistent latency vs count graph depicting a more-or-less constant latency with the exception of the Node.js drivers which have a tendency to depict a linear or logarithmic increase in latency with an increase in count.
 
-I am absolutely puzzled by the `node-mongodb-native` driver's latency measurements. They appear to be hitting some sort of internal stack (opposed to a buffer) which causes their latency values to grow very drastically and produces some visually novel visualizations (especially between iterations).
+I was absolutely puzzled by the `node-mongodb-native` driver's latency measurements. They appeared to be hitting some sort of internal stack (opposed to a buffer) which caused their latency values to grow drastically and produce some novel visualizations (especially between iterations).
 
-On occasion, the single-threaded Node.js producter will create a graph that loosely resembles the rest of the drivers, but this behavior is inconsistent.
+On occasion, the single-threaded Node.js producter created a graph that loosely resembles the rest of the drivers, but the behavior was inconsistent.
 
-I would greatly appreciate any help diagnosing and explaining this phenomenon! :beers:
+I reached out to [Christian Amor Kvalheim](https://github.com/christkv) on [MongoDB's Jira](https://jira.mongodb.org/browse/NODE-191) about this behavior.
+
+His suggestion was that I try using `process.nextTick()` at some interval.
+
+```
+Christian Amor Kvalheim added a comment - Last Saturday 04:22 AM GMT-0700
+
+yes this would be about what I would expect as the actual inserting process is blocking the node.js process until it's done inserting, meaning you give node.js any time to process messages coming from the server in between causing latency to be more or less the "time" it takes for you to finish inserting.
+
+Try interleaving the messages with a process.nextTick in between each n inserts so the event loop can actually process callbacks.
+```
+
+I refactored the insert into a function and had it do `process.nextTick()` every `n` messages. I tried various values for `n`, starting at 1 and moving up to 128 doubling `n` every time. The best result on the Debian VM for the single-threaded producer was at `n = 32`. The values of `n` that I tried seemed to have no effect on the clustered producer.

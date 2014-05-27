@@ -1,0 +1,3 @@
+$ node producer.js
+total: 100000
+msg/s: 1362.4720693225788
